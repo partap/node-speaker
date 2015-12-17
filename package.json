@@ -23,15 +23,16 @@
   "author": "Nathan Rajlich <nathan@tootallnate.net> (http://tootallnate.net)",
   "repository": {
     "type": "git",
-    "url": "git://github.com/TooTallNate/node-speaker.git"
+    "url": "git://github.com/partap/node-speaker.git"
   },
   "bugs": {
-    "url": "https://github.com/TooTallNate/node-speaker/issues"
+    "url": "https://github.com/partap/node-speaker/issues"
   },
-  "homepage": "https://github.com/TooTallNate/node-speaker",
+  "homepage": "https://github.com/partap/node-speaker",
   "main": "./index.js",
   "scripts": {
-    "test": "node-gyp rebuild --mpg123-backend=dummy && mocha --reporter spec"
+    "test": "mocha --reporter spec",
+    "install": "node-pre-gyp install --fallback-to-build"
   },
   "dependencies": {
     "bindings": "~1.2.1",
@@ -39,7 +40,16 @@
     "nan": "2",
     "readable-stream": "1.0"
   },
+  "bundledDependencies": ["node-pre-gyp"],
   "devDependencies": {
+    "aws-sdk": "^2.2.23",
     "mocha": "~2.1.0"
+  },
+  "binary": {
+    "module_name": "speaker_binding",
+    "module_path": "./compiled/{node_abi}/{platform}/{arch}/",
+    "remote_path": "./{module_name}/v{version}/{configuration}/",
+    "package_name": "{module_name}-v{version}-{node_abi}-{platform}-{arch}.tar.gz",
+    "host": "https://etr-dist.s3-us-west-1.amazonaws.com"
   }
 }

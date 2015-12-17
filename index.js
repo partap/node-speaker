@@ -5,9 +5,13 @@
 
 var os = require('os');
 var debug = require('debug')('speaker');
-var binding = require('bindings')('binding');
 var inherits = require('util').inherits;
 var Writable = require('readable-stream/writable');
+
+var binary = require('node-pre-gyp');
+var path = require('path');
+var binding_path = binary.find(path.resolve(path.join(__dirname, './package.json')));
+var binding = require(binding_path);
 
 // determine the native host endianness, the only supported playback endianness
 var endianness = 'function' == os.endianness ?
